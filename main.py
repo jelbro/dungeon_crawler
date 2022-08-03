@@ -19,9 +19,9 @@ intel_mod = functions.intel_mods(race, dungeon_class)  # calculates the player's
 # given chosen race and class
 hp_total = functions.hp_calc(race, dungeon_class)  # calculates the player's total hp given race and class mods
 player_defence = functions.def_calc(race, dungeon_class)  # calculates the player's defence given race and class mods
-strong = functions.strong_calc(race, dungeon_class)  # calculates players strength
-cha = functions.cha_calc(race, dungeon_class)  # calculates players charisma
-intel = functions.intel_calc(race, dungeon_class)  # calculates players intelligence
+strong = functions.strong_calc()  # calculates players strength
+cha = functions.cha_calc()  # calculates players charisma
+intel = functions.intel_calc()  # calculates players intelligence
 functions.display_stats(hp_total, strong, cha, intel, player_defence)  # displays final stats of the player
 input("Time to enter the dungeon.")  # intro screen 2
 while player_alive:  # main loop for game should check if the player is alive can't get this to work properly

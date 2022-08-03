@@ -2,7 +2,7 @@ import random
 
 
 def race_picker():  # function to ask player to select their race
-    while not race_picked:  # race selection while loop will repeat until valid race is picked
+    while True:  # race selection while loop will repeat until valid race is picked
         race = input('What is your Race? (Dwarf, Elf, Ogre) ')
         if race in ['Dwarf', 'dwarf', 'DWARF', 'd', 'D']:
             race = 'a Dwarf'
@@ -14,12 +14,11 @@ def race_picker():  # function to ask player to select their race
             race = 'an Ogre'
             return race
         else:
-            race_picked = False
             print('Invalid Race Picked')
 
 
 def class_picker():  # functions to ask player to select their class
-    while not class_picked:  # race selection while loop will repeat until valid race is picked
+    while True:  # race selection while loop will repeat until valid race is picked
         dungeon_class = input('What is your Class? (Warrior, Wizard, Bard) ')
         if dungeon_class in ['Warrior', 'warrior', 'WARRIOR', 'w', 'W']:
             dungeon_class = 'Warrior'
@@ -31,7 +30,6 @@ def class_picker():  # functions to ask player to select their class
             dungeon_class = 'Bard'
             return dungeon_class
         else:
-            class_picked = False
             print('Invalid Class Picked')
 
 
@@ -150,21 +148,21 @@ def def_calc(race, dungeon_class):  # calculates the player's defence using race
     return roll
 
 
-def strong_calc(race, dungeon_class):  # calculates players strength
+def strong_calc():  # calculates players strength
     input("Roll for Strength.")
     roll = dice(1, 10)
     print(f"You have {roll} Strength.")
     return roll
 
 
-def cha_calc(race, dungeon_class):  # calculates players charisma
+def cha_calc():  # calculates players charisma
     input("Roll for Charisma.")
     roll = dice(1, 10)
     print(f"You have {roll} Charisma.")
     return roll
 
 
-def intel_calc(race, dungeon_class):  # calculates players intelligence
+def intel_calc():  # calculates players intelligence
     input("Roll for Intelligence.")
     roll = dice(1, 10)
     print(f"You have {roll} Intelligence.")
