@@ -1,48 +1,42 @@
 import random
 
 
-def race_picker():
-    race_picked = False  # boolean to track if the player has chosen a valid race
+def race_picker():  # function to ask player to select their race
     while not race_picked:  # race selection while loop will repeat until valid race is picked
         race = input('What is your Race? (Dwarf, Elf, Ogre) ')
         if race in ['Dwarf', 'dwarf', 'DWARF', 'd', 'D']:
             race = 'a Dwarf'
-            race_picked = True
             return race
         elif race in ['Elf', 'elf', 'ELF', 'e', 'E']:
             race = 'an Elf'
-            race_picked = True
             return race
         elif race in ['Ogre', 'ogre', 'OGRE', 'o', 'O']:
             race = 'an Ogre'
-            race_picked = True
             return race
         else:
+            race_picked = False
             print('Invalid Race Picked')
 
 
-def class_picker():
-    class_picked = False  # boolean to track if the player has chose a valid class
-    dungeon_class = 'Peasant'
+def class_picker():  # functions to ask player to select their class
     while not class_picked:  # race selection while loop will repeat until valid race is picked
         dungeon_class = input('What is your Class? (Warrior, Wizard, Bard) ')
         if dungeon_class in ['Warrior', 'warrior', 'WARRIOR', 'w', 'W']:
             dungeon_class = 'Warrior'
-            class_picked = True
             return dungeon_class
         elif dungeon_class in ['Wizard', 'wizard', 'WIZARD', 'w', 'W']:
             dungeon_class = 'Wizard'
-            class_picked = True
             return dungeon_class
         elif dungeon_class in ['Bard', 'bard', 'BARD', 'b', 'B']:
             dungeon_class = 'Bard'
-            class_picked = True
             return dungeon_class
         else:
+            class_picked = False
             print('Invalid Class Picked')
 
 
-def strong_mods(race, dungeon_class):
+def strong_mods(race, dungeon_class):  # takes player's race and class and return's the hidden strength mod not sure
+    # if this is working properly and combining both class and race mods
     strong_mod = 0
     if race in 'a Dwarf':
         strong_mod += 2
@@ -63,7 +57,8 @@ def strong_mods(race, dungeon_class):
         return strong_mod
 
 
-def cha_mods(race, dungeon_class):
+def cha_mods(race, dungeon_class):  # takes player's race and class and return's the hidden charisma mod not sure
+    # if this is working properly and combining both class and race mods
     cha_mod = 0
     if race in 'a Dwarf':
         cha_mod += 2
@@ -84,7 +79,8 @@ def cha_mods(race, dungeon_class):
         return cha_mod
 
 
-def intel_mods(race, dungeon_class):
+def intel_mods(race, dungeon_class):  # takes player's race and class and return's the hidden strength mod not sure
+    # if this is working properly and combining both class and race mods
     intel_mod = 0
     if race in 'a Dwarf':
         intel_mod += 2
@@ -94,10 +90,10 @@ def intel_mods(race, dungeon_class):
         return intel_mod
     else:
         intel_mod += 5
-    if race in 'Warrior':
+    if dungeon_class in 'Warrior':
         intel_mod -= 3
         return intel_mod
-    elif race in 'Wizard':
+    elif dungeon_class in 'Wizard':
         intel_mod += 5
         return intel_mod
     else:
@@ -105,18 +101,18 @@ def intel_mods(race, dungeon_class):
         return intel_mod
 
 
-def dice(low_side, high_side):
+def dice(low_side, high_side):  # dice function you give it the low side and high side of the dice e.g. 1, 6 for a d6
     roll = random.randint(low_side, high_side)
     print(f"You rolled {roll}")
     return roll
 
 
-def dm_dice(low_side, high_side):
+def dm_dice(low_side, high_side):  # same as before but doesn't display the roll
     roll = random.randint(low_side, high_side)
     return roll
 
 
-def hp_calc(race, dungeon_class):
+def hp_calc(race, dungeon_class):  # calculates the player's hitpoints using race and class mods
     input("Roll for Hit Points.")
     roll = dice(10, 20)
     if race in 'a Dwarf':
@@ -135,7 +131,7 @@ def hp_calc(race, dungeon_class):
     return roll
 
 
-def def_calc(race, dungeon_class):
+def def_calc(race, dungeon_class):  # calculates the player's defence using race and class mods
     input("Roll for Defence.")
     roll = dice(7, 9)
     if race in 'a Dwarf':
@@ -154,28 +150,28 @@ def def_calc(race, dungeon_class):
     return roll
 
 
-def strong_calc(race, dungeon_class):
+def strong_calc(race, dungeon_class):  # calculates players strength
     input("Roll for Strength.")
     roll = dice(1, 10)
     print(f"You have {roll} Strength.")
     return roll
 
 
-def cha_calc(race, dungeon_class):
+def cha_calc(race, dungeon_class):  # calculates players charisma
     input("Roll for Charisma.")
     roll = dice(1, 10)
     print(f"You have {roll} Charisma.")
     return roll
 
 
-def intel_calc(race, dungeon_class):
+def intel_calc(race, dungeon_class):  # calculates players intelligence
     input("Roll for Intelligence.")
     roll = dice(1, 10)
     print(f"You have {roll} Intelligence.")
     return roll
 
 
-def monster_generator():
+def monster_generator():  # rolls a die to see which monster is generated
     roll = dm_dice(1, 2)
     if roll == 1:
         monster_name = "Goblin"
@@ -185,7 +181,7 @@ def monster_generator():
         return monster_name
 
 
-def monster_def_calc(monster_name):
+def monster_def_calc(monster_name):  # calculates monsters defence based on monsters name
     if monster_name in "Goblin":
         monster_def = 7
         return monster_def
@@ -194,7 +190,7 @@ def monster_def_calc(monster_name):
         return monster_def
 
 
-def monster_attk_calc(monster_name):
+def monster_attk_calc(monster_name):  # calculates monsters attack based on monsters name
     if monster_name in "Goblin":
         monster_attk = 8
         return monster_attk
@@ -203,7 +199,7 @@ def monster_attk_calc(monster_name):
         return monster_attk
 
 
-def monster_health_calc(monster_name):
+def monster_health_calc(monster_name):  # calculates monsters health based on monsters name
     if monster_name in "Goblin":
         monster_health = 13
         return monster_health
@@ -212,7 +208,7 @@ def monster_health_calc(monster_name):
         return monster_health
 
 
-def display_stats(hp_total, strong, cha, intel, player_defence):
+def display_stats(hp_total, strong, cha, intel, player_defence):  # prints players stats
     print("Your Stats are:")
     print(f"{hp_total} Hit points")
     print(f"{player_defence} Hit points")
@@ -221,26 +217,26 @@ def display_stats(hp_total, strong, cha, intel, player_defence):
     print(f"{intel} Intelligence")
 
 
-def player_attack(dungeon_class, strong_mod, cha_mod, strong, cha, intel, intel_mod, monster_defence, monster_health):
+def player_attack(dungeon_class, strong_mod, cha_mod, strong, cha, intel, intel_mod, monster_defence, monster_health):  # main player attack loop
     input("Roll to hit")
-    roll = dice(1, 20)
-    if dungeon_class in "Warrior":
-        if (roll + strong_mod) > strong:
+    roll = dice(1, 20)  # rolls a 20 sided dice and stores input in roll
+    if dungeon_class in "Warrior":  # warriors attack loop
+        if (roll + strong_mod) > strong:  # this is a bit janky not properly worked out the combat mechanics calculates if you hit
             print("You swing your sword at the creature, it hits!")
             input("Roll for damage")
-            roll10 = dice(1, 10)
-            block_roll = dm_dice(1, 20)
-            if block_roll >= monster_defence:
+            roll10 = dice(1, 10)  # rolls a new dice which calculates your damage
+            block_roll = dm_dice(1, 20)  # rolls a dice hidden to player which calculates if the monster blocked the attack
+            if block_roll >= monster_defence:  # again a bit janky combat mechanics wise should calculate if monster blocked
                 print("The Creature blocks the attack!")
-            else:
+            else:  # monster didn't block you damage it
                 print(f"You rolled a {roll10}.")
                 print(f"Your sword slices the creature for {roll10} damage!")
-                monster_health -= roll10
-            if monster_health <= 0:
+                monster_health -= roll10  # should remove damage from monster's health don't think this is working tho
+            if monster_health <= 0:  # this sometimes works but i don't think it breaks out of the while properly if it does
                 print("You killed the monster!")
         else:
             print("You swing your sword high into the air, and completely miss the beast...")
-    elif dungeon_class in "Bard":
+    elif dungeon_class in "Bard":  # this and wizard below are same as above just different flavour text probs a better way to do this?
         if (roll + cha_mod) > cha:
             print("You strum your lute and send a spell right at the creature!")
             input("Roll for damage")
@@ -274,26 +270,26 @@ def player_attack(dungeon_class, strong_mod, cha_mod, strong, cha, intel, intel_
             print("You wave your wand in the air, nothing happens...")
 
 
-def monster_attack(hp_total, player_defence, monster_attk):
-    roll = dm_dice(1, 20)
-    if roll > monster_attk:
+def monster_attack(hp_total, player_defence, monster_attk):  # main monster attack loop
+    roll = dm_dice(1, 20)  # rolls a hidden to player d20 to see if monster hit
+    if roll > monster_attk:  # janky but works out if monster hit you
         print("The Monster attacks you!")
-        roll10 = dm_dice(1, 10)
-        input("Roll to Block")
+        roll10 = dm_dice(1, 10)  # dm rolls for monster damage
+        input("Roll to Block")  # player rolls to block
         block_roll = dice(1, 20)
-        if block_roll <= player_defence:
+        if block_roll <= player_defence:  # bit janky
             print("You block the monster's attack!")
         else:
-            print(f"The creature hits you for {roll10} damage!")
-            hp_total = hp_total - roll10
+            print(f"The creature hits you for {roll10} damage!")  # creature hits you and deals damage
+            hp_total = hp_total - roll10  # this was the main issue i needed help with if you play the game and watch the current hp printed below it does some weird shit number just seems to go up and down randomly
             print(f"Your current hp is {hp_total}")
-        if hp_total <= 0:
+        if hp_total <= 0:  # dont think this works either especially with the check_alive function or breaking out of the while when dead
             print("The monster's attack kills you.")
     else:
         print("The creature attacks you...and misses.")
 
 
-def check_alive(hp_total):
+def check_alive(hp_total):  # function to check  if the player is alive doesn't seem to work
     if hp_total <= 0:
         player_alive = False
         print("You have died")
