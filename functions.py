@@ -212,9 +212,10 @@ def monster_health_calc(monster_name):
         return monster_health
 
 
-def display_stats(hp_total, strong, cha, intel):
+def display_stats(hp_total, strong, cha, intel, player_defence):
     print("Your Stats are:")
     print(f"{hp_total} Hit points")
+    print(f"{player_defence} Hit points")
     print(f"{strong} Strength")
     print(f"{cha} Charisma")
     print(f"{intel} Intelligence")
