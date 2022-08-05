@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a95b9400-a7a5-4f5c-ba1b-3bdad6d38522" name="Changes" comment="fixed while loops in race_picker and class_picker">
+    <list default="true" id="a95b9400-a7a5-4f5c-ba1b-3bdad6d38522" name="Changes" comment="fixed most things player can now die and monster can die, player can also run from the fight now&#10;added level up system after fight&#10;added while loop to replay game if player dies">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -29,14 +29,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/Jelbro/PycharmProjects/dungeon_crawler",
-    "settings.editor.selected.configurable": "editor.preferences.gutterIcons"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Jelbro/PycharmProjects/dungeon_crawler&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.gutterIcons&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Jelbro\PycharmProjects\dungeon_crawler" />
@@ -72,7 +72,14 @@
       <option name="project" value="LOCAL" />
       <updated>1659526617269</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="fixed most things player can now die and monster can die, player can also run from the fight now&#10;added level up system after fight&#10;added while loop to replay game if player dies">
+      <created>1659630554542</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1659630554542</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -90,6 +97,7 @@
     <MESSAGE value="added comments to main" />
     <MESSAGE value="added comments to functions" />
     <MESSAGE value="fixed while loops in race_picker and class_picker" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed while loops in race_picker and class_picker" />
+    <MESSAGE value="fixed most things player can now die and monster can die, player can also run from the fight now&#10;added level up system after fight&#10;added while loop to replay game if player dies" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed most things player can now die and monster can die, player can also run from the fight now&#10;added level up system after fight&#10;added while loop to replay game if player dies" />
   </component>
 </project>

@@ -16,30 +16,30 @@ def dm_dice(dm_low_side, dm_high_side):  # same as before but doesn't display th
 
 def race_picker():  # function to ask player to select their race
     while True:  # race selection while loop will repeat until valid race is picked
-        race_picked = input('What is your Race? (Dwarf, Elf, Ogre) ')
-        if race_picked in ['Dwarf', 'dwarf', 'DWARF', 'd', 'D']:
+        race_picked = input('What is your Race? ([D]warf, [E]lf, [O]gre) ')
+        if race_picked.lower() == 'd':
             race_picked = 'a Dwarf'
             return race_picked
-        elif race_picked in ['Elf', 'elf', 'ELF', 'e', 'E']:
+        elif race_picked.lower() == 'e':
             race_picked = 'an Elf'
             return race_picked
-        elif race_picked in ['Ogre', 'ogre', 'OGRE', 'o', 'O']:
+        elif race_picked.lower() == 'o':
             race_picked = 'an Ogre'
             return race_picked
         else:
-            print('Invalid Race Picked')
+            print('Invalid race picked, please use a single character input')
 
 
 def class_picker():  # functions to ask player to select their class
     while True:  # race selection while loop will repeat until valid race is picked
-        class_picked = input('What is your Class? (Warrior, Wizard, Bard) ')
-        if class_picked in ['Warrior', 'warrior', 'WARRIOR', 'w', 'W']:
+        class_picked = input('What is your Class? ([W]arrior, [M]age, [B]ard) ')
+        if class_picked.lower() == 'w':
             class_picked = 'Warrior'
             return class_picked
-        elif class_picked in ['Wizard', 'wizard', 'WIZARD', 'wi', 'WI', 'Wi']:
-            class_picked = 'Wizard'
+        elif class_picked.lower() == 'm':
+            class_picked = 'Mage'
             return class_picked
-        elif class_picked in ['Bard', 'bard', 'BARD', 'b', 'B']:
+        elif class_picked.lower() == 'b':
             class_picked = 'Bard'
             return class_picked
         else:
@@ -49,125 +49,116 @@ def class_picker():  # functions to ask player to select their class
 def strong_mods(race_str, class_str):  # takes player's race and class and return's the hidden strength mod not sure
     # if this is working properly and combining both class and race mods
     str_mod = 0
-    if race_str in 'a Dwarf':
+    if race_str == 'a Dwarf':
         str_mod += 2
-        return str_mod
-    elif race_str in 'an Elf':
+    elif race_str == 'an Elf':
         str_mod -= 2
-        return str_mod
-    else:
+    elif race_str == 'an Ogre':
         str_mod += 5
-    if class_str in 'Warrior':
-        str_mod += 2
-        return str_mod
-    elif class_str in 'Wizard':
-        str_mod -= 3
-        return str_mod
     else:
+        str_mod += 0
+    if class_str == 'Warrior':
+        str_mod += 2
+    elif class_str == 'Mage':
+        str_mod -= 3
+    elif class_str == 'Bard':
         str_mod -= 1
-        return str_mod
+    else:
+        str_mod += 0
+    return str_mod
 
 
 def cha_mods(race_cha, class_cha):  # takes player's race and class and return's the hidden charisma mod not sure
     # if this is working properly and combining both class and race mods
     char_mod = 0
-    if race_cha in 'a Dwarf':
+    if race_cha == 'a Dwarf':
         char_mod += 2
-        return char_mod
-    elif race_cha in 'an Elf':
+    elif race_cha == 'an Elf':
         char_mod -= 2
-        return char_mod
-    else:
+    elif race_cha == 'an Ogre':
         char_mod += 5
-    if class_cha in 'Warrior':
+    else:
+        char_mod += 0
+    if class_cha == 'Warrior':
         char_mod -= 2
-        return char_mod
-    elif class_cha in 'Wizard':
+    elif class_cha == 'Mage':
         char_mod += 2
-        return char_mod
-    else:
+    elif class_cha == 'Bard':
         char_mod += 5
-        return char_mod
+    else:
+        char_mod += 0
+    return char_mod
 
 
 def intel_mods(race_intel, class_intel):  # takes player's race and class and return's the hidden strength mod not sure
     # if this is working properly and combining both class and race mods
     int_mod = 0
-    if race_intel in 'a Dwarf':
+    if race_intel == 'a Dwarf':
         int_mod += 2
-        return int_mod
-    elif race_intel in 'an Elf':
+    elif race_intel == 'an Elf':
         int_mod += 2
-        return int_mod
-    else:
+    elif race_intel == 'an Ogre':
         int_mod += 5
-    if class_intel in 'Warrior':
+    if class_intel == 'Warrior':
         int_mod -= 3
-        return int_mod
-    elif class_intel in 'Wizard':
+    elif class_intel == 'Mage':
         int_mod += 5
-        return int_mod
-    else:
+    elif class_intel == 'Bard':
         int_mod += 1
-        return int_mod
+    return int_mod
 
 
 def hp_calc(race_hp, class_hp):  # calculates the player's hitpoints using race and class mods
     input("Roll for Hit Points.")
     hp_roll = dice(10, 20)
-    if race_hp in 'a Dwarf':
+    if race_hp == 'a Dwarf':
         hp_roll += 2
-    elif race_hp in 'an Elf':
+    elif race_hp == 'an Elf':
         hp_roll -= 3
-    elif race_hp in 'an Ogre':
+    elif race_hp == 'an Ogre':
         hp_roll += 5
-    if class_hp in 'Warrior':
+    if class_hp == 'Warrior':
         hp_roll += 2
-    elif class_hp in 'Wizard':
+    elif class_hp == 'Mage':
         hp_roll -= 3
-    elif class_hp in 'Bard':
+    elif class_hp == 'Bard':
         hp_roll -= 1
-    # print(f"You have {hp_roll} total hit points.")
     return hp_roll
 
 
 def def_calc(race_def, class_def):  # calculates the player's defence using race and class mods
     input("Roll for Defence.")
     def_roll = dice(7, 9)
-    if race_def in 'a Dwarf':
+    if race_def == 'a Dwarf':
         def_roll += 2
-    elif race_def in 'an Elf':
+    elif race_def == 'an Elf':
         def_roll -= 2
-    elif race_def in 'an Ogre':
+    elif race_def == 'an Ogre':
         def_roll += 3
-    if class_def in 'Warrior':
+    if class_def == 'Warrior':
         def_roll += 3
-    elif class_def in 'Wizard':
+    elif class_def == 'Mage':
         def_roll -= 3
-    elif class_def in 'Bard':
+    elif class_def == 'Bard':
         def_roll -= 1
-    # print(f"You have {def_roll} Defence.")
     return def_roll
 
 
 def strong_calc():  # calculates players strength
     input("Roll for Strength.")
     str_calc_roll = dice(1, 10)
-    # print(f"You have {str_calc_roll} Strength.")
     return str_calc_roll
 
 
 def cha_calc():  # calculates players charisma
     input("Roll for Charisma.")
     cha_calc_roll = dice(1, 10)
-    # print(f"You have {cha_calc_roll} Charisma.")
     return cha_calc_roll
 
 
 def intel_calc():  # calculates players intelligence
     input("Roll for Intelligence.")
     intel_calc_roll = dice(1, 10)
-    # print(f"You have {intel_calc_roll} Intelligence.")
     return intel_calc_roll
 
 
@@ -182,28 +173,28 @@ def monster_generator():  # rolls a die to see which monster is generated
 
 
 def monster_def_calc(monster_def_name):  # calculates monsters defence based on monsters name
-    if monster_def_name in "Goblin":
+    if monster_def_name == "Goblin":
         calc_monster_def = 7
         return calc_monster_def
-    elif monster_def_name in "Skeleton":
+    elif monster_def_name == "Skeleton":
         calc_monster_def = 10
         return calc_monster_def
 
 
 def monster_attk_calc(monster_attk_name):  # calculates monsters attack based on monsters name
-    if monster_attk_name in "Goblin":
+    if monster_attk_name == "Goblin":
         calc_monster_attk = 8
         return calc_monster_attk
-    elif monster_attk_name in "Skeleton":
+    elif monster_attk_name == "Skeleton":
         calc_monster_attk = 9
         return calc_monster_attk
 
 
 def monster_health_calc(monster_health_name):  # calculates monsters health based on monsters name
-    if monster_health_name in "Goblin":
+    if monster_health_name == "Goblin":
         calc_monster_health = 13
         return calc_monster_health
-    elif monster_health_name in "Skeleton":
+    elif monster_health_name == "Skeleton":
         calc_monster_health = 11
         return calc_monster_health
 
@@ -221,54 +212,75 @@ def display_stats(display_hp_total, display_strong, display_cha, display_intel,
 def player_attack(attk_dungeon_class, attk_strong_mod, attk_cha_mod, attk_strong, attk_cha, attk_intel, attk_intel_mod,
                   attk_monster_defence, attk_monster_health):  # main player attack loop
     input("Roll to hit")
-    hit_roll = dice(1, 20)  # rolls a 20 sided dice and stores input in roll
-    if attk_dungeon_class in "Warrior":  # warriors attack loop
-        if (hit_roll + attk_strong_mod) > attk_strong:  # calculates if you hit
+    hit_roll = dice(1, 20)
+    if attk_dungeon_class == "Warrior":
+        if hit_roll == 20:
+            print("It's a critical hit!")
+            input("Roll for damage")
+            dmg_roll = (dice(1, 10)) * 2
+            print(f"Your sword slices the creature for {dmg_roll} damage!")
+            attk_monster_health -= dmg_roll
+            return attk_monster_health
+        elif hit_roll == 1:
+            print("You swing your sword...and completely miss the beast!")
+            return attk_monster_health
+        elif (hit_roll + attk_strong_mod + attk_strong) >= attk_monster_defence \
+                and (hit_roll + attk_strong_mod + attk_strong) != 20 \
+                and (hit_roll + attk_strong_mod + attk_strong) != 1:
             print("You swing your sword at the creature, it hits!")
             input("Roll for damage")
-            dmg_roll = dice(1, 10)  # rolls a new dice which calculates your damage
-            block_roll = dm_dice(1, 20)  # rolls a hidden die which calculates if the monster blocked the attack
-            if block_roll >= attk_monster_defence:  # calculate if monster blocked
-                print("The Creature blocks the attack!")
-                return attk_monster_health
-            else:  # monster didn't block you damage it
-                print(f"Your sword slices the creature for {dmg_roll} damage!")
-                attk_monster_health -= dmg_roll  # remove damage from monsters health
-                return attk_monster_health
-        else:
-            print("You swing your sword high into the air, and completely miss the beast...")
+            dmg_roll = dice(1, 10)
+            print(f"Your sword slices the creature for {dmg_roll} damage!")
+            attk_monster_health -= dmg_roll
             return attk_monster_health
-    elif dungeon_class in "Bard":  # this and wizard below are same as above just different flavour text
-        if (hit_roll + attk_cha_mod) > attk_cha:
+        else:
+            print("The Creature blocks the attack!")
+            return attk_monster_health
+    elif dungeon_class == "Bard":
+        if hit_roll == 20:
+            print("It's a critical hit!")
+            input("Roll for damage")
+            dmg_roll = (dice(1, 10)) * 2
+            print(f"Your spell echo's around the room and hits the beast for {dmg_roll} damage!")
+            attk_monster_health -= dmg_roll
+            return attk_monster_health
+        elif hit_roll == 1:
+            print("You strum your lute, maybe you should have tuned first...")
+            return attk_monster_health
+        elif (hit_roll + attk_cha_mod + attk_cha) > monster_defence \
+                and (hit_roll + attk_cha_mod + cha_mod) != 20 \
+                and (hit_roll + attk_cha_mod + cha_mod) != 1:
             print("You strum your lute and send a spell right at the creature!")
             input("Roll for damage")
             dmg_roll = dice(1, 10)
-            block_roll = dm_dice(1, 20)
-            if block_roll >= attk_monster_defence:
-                print("The Creature blocks the attack!")
-                return attk_monster_health
-            else:
-                print(f"Your spell hits the creature for {dmg_roll} damage!")
-                attk_monster_health -= dmg_roll
-                return attk_monster_health
-        else:
-            print("You strum your lute, maybe you should have tuned first...")
+            print(f"Your spell hits the creature for {dmg_roll} damage!")
+            attk_monster_health -= dmg_roll
             return attk_monster_health
-    elif dungeon_class in "Wizard":
-        if (hit_roll + attk_intel_mod) > attk_intel:
+        else:
+            print("The Creature blocks the attack!")
+            return attk_monster_health
+    elif dungeon_class == "Mage>":
+        if hit_roll == 20:
+            print("It's a critical hit!")
+            input("Roll for damage")
+            dmg_roll = (dice(1, 10)) * 2
+            print(f"You cast a huge fireball engulfing the creature for {dmg_roll} damage!")
+            attk_monster_health -= dmg_roll
+            return attk_monster_health
+        elif hit_roll == 1:
+            print("You wave your wand in the air, nothing happens...")
+            return attk_monster_health
+        elif (hit_roll + attk_intel_mod + attk_intel) > monster_defence \
+                and (hit_roll + attk_intel_mod + intel_mod) != 20 \
+                and (hit_roll + attk_intel_mod + intel_mod) != 1:
             print("You cast a fireball directly at the creature!")
             input("Roll for damage")
             dmg_roll = dice(1, 10)
-            block_roll = dm_dice(1, 20)
-            if block_roll >= attk_monster_defence:
-                print("The Creature blocks the attack!")
-                return attk_monster_health
-            else:
-                print(f"Your fireball scorches the creature for {dmg_roll} damage!")
-                attk_monster_health -= dmg_roll
-                return attk_monster_health
+            print(f"Your fireball scorches the creature for {dmg_roll} damage!")
+            attk_monster_health -= dmg_roll
+            return attk_monster_health
         else:
-            print("You wave your wand in the air, nothing happens...")
+            print("The Creature blocks the attack!")
             return attk_monster_health
 
 
@@ -316,15 +328,15 @@ def which_level():  # gets input for chosen level up skill
     while True:
         skill_up = input("You levelled up, which stat would you like to increase?"
                          "(h = Hit points, d = Defence, s = Strength, c = Charisma, i = Intelligence)")
-        if skill_up in "h":
+        if skill_up.lower() == "h":
             return skill_up
-        elif skill_up in "d":
+        elif skill_up.lower() == "d":
             return skill_up
-        elif skill_up in "s":
+        elif skill_up.lower() == "s":
             return skill_up
-        elif skill_up in "c":
+        elif skill_up.lower() == "c":
             return skill_up
-        elif skill_up in "i":
+        elif skill_up.lower() == "i":
             return skill_up
         else:
             print("Invalid Stat Picked")
@@ -366,29 +378,29 @@ while play_game:
             monster_alive = True
             print(f"You encounter a {monster_name}!")
             while monster_alive and player_escaped and player_alive:  # main combat loop
-                action = input("What do you do? (Attack, Run)")  # asks player for action
-                if action in ("Attack", "attack", "ATTACK", "a", "A"):  # if player chooses to attack
+                action = input("What do you do? ([A]ttack, [R]un)")  # asks player for action
+                if action.lower() == "a":  # if player chooses to attack
                     monster_health = player_attack(dungeon_class, strong_mod, cha_mod, strong, cha, intel, intel_mod,
                                                    monster_defence, monster_health)
                     monster_alive = check_monster_alive(monster_health)
                     if not monster_alive:
                         hp_total = mem_hp_total
                         level_up = which_level()
-                        if level_up in "h":
+                        if level_up.lower() == "h":
                             hp_total += 1
-                        elif level_up in "d":
+                        elif level_up.lower() == "d":
                             player_defence += 1
-                        elif level_up in "s":
+                        elif level_up.lower() == "s":
                             strong += 1
-                        elif level_up in "c":
+                        elif level_up.lower() == "c":
                             cha += 1
-                        elif level_up in "i":
+                        elif level_up.lower() == "i":
                             intel += 1
                         display_stats(hp_total, strong, cha, intel, player_defence)
                         continue
                     hp_total = monster_attack(hp_total, player_defence, monster_defence)
                     player_alive = check_alive(hp_total)
-                elif action in ("Run", "run", "RUN", "r", "R"):  # if player runs they will have to roll
+                elif action.lower() == "r":  # if player runs they will have to roll
                     input("Roll to escape!")
                     escape_roll = dice(1, 20)
                     if escape_roll > 15:
@@ -400,10 +412,10 @@ while play_game:
                         print("You have died.")
                         player_alive = False
         elif door == 2:  # not done yet
-            action = input("You find a chest, What do you do? (Open, Check)")
-            if action in ("Open", "open", "OPEN", "o", "O"):
+            action = input("You find a chest, What do you do? ([O]pen, [C]heck)")
+            if action.lower() == "o":
                 print("You open the chest.")
-            elif action in ("Check", "check", "CHECK", "c", "C"):
+            elif action.lower() == "c":
                 print("You check the chest for traps.")
         elif door == 3:  # not done yet
             action = input("You encounter a strange man who asks you a riddle?")
@@ -412,9 +424,9 @@ while play_game:
             elif action in ("Run", "run", "RUN", "r", "R"):
                 print("You Attack.")
     play_again_input = input("Play Again? (y/n)")  # asks if player wants to play again once dead
-    if play_again_input in ('y', 'Y'):
+    if play_again_input.lower == 'Y':
         play_game = True
-    elif play_again_input in "n":
+    elif play_again_input.lower() == "n":
         play_game = False
     else:
         play_game = False
