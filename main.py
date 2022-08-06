@@ -5,7 +5,7 @@ play_game = True
 
 def dice(low_dice, high_dice):  # dice function you give it the low side and high side of the dice e.g. 1, 6 for a d6
     dice_roll = random.randint(low_dice, high_dice)
-    print(f"You rolled a {dice_roll}.")
+    print(f"You rolled {dice_roll}.")
     return dice_roll
 
 
@@ -76,7 +76,7 @@ def cha_mods(race_cha, class_cha):  # takes player's race and class and return's
     elif race_cha == 'an Elf':
         char_mod -= 2
     elif race_cha == 'an Ogre':
-        char_mod += 5
+        char_mod -= 5
     else:
         char_mod += 0
     if class_cha == 'Warrior':
@@ -163,21 +163,27 @@ def intel_calc():  # calculates players intelligence
 
 
 def monster_generator():  # rolls a die to see which monster is generated
-    monster_name_roll = dm_dice(1, 2)
-    if monster_name_roll == 1:
+    monster_name_roll = dm_dice(1, 5)
+    if monster_name_roll == 1 or monster_name_roll == 2:
         gen_monster_name = "Goblin"
         return gen_monster_name
-    if monster_name_roll == 2:
+    if monster_name_roll == 3 or monster_name_roll == 4:
         gen_monster_name = "Skeleton"
+        return gen_monster_name
+    if monster_name_roll == 5:
+        gen_monster_name = "Beholder"
         return gen_monster_name
 
 
 def monster_def_calc(monster_def_name):  # calculates monsters defence based on monsters name
     if monster_def_name == "Goblin":
-        calc_monster_def = 7
+        calc_monster_def = 12
         return calc_monster_def
     elif monster_def_name == "Skeleton":
-        calc_monster_def = 10
+        calc_monster_def = 15
+        return calc_monster_def
+    elif monster_def_name == "Beholder":
+        calc_monster_def = 20
         return calc_monster_def
 
 
@@ -188,6 +194,9 @@ def monster_attk_calc(monster_attk_name):  # calculates monsters attack based on
     elif monster_attk_name == "Skeleton":
         calc_monster_attk = 9
         return calc_monster_attk
+    elif monster_attk_name == "Beholder":
+        calc_monster_attk = 16
+        return calc_monster_attk
 
 
 def monster_health_calc(monster_health_name):  # calculates monsters health based on monsters name
@@ -196,6 +205,9 @@ def monster_health_calc(monster_health_name):  # calculates monsters health base
         return calc_monster_health
     elif monster_health_name == "Skeleton":
         calc_monster_health = 11
+        return calc_monster_health
+    elif monster_health_name == "Beholder":
+        calc_monster_health = 40
         return calc_monster_health
 
 
@@ -223,6 +235,7 @@ def player_attack(attk_dungeon_class, attk_strong_mod, attk_cha_mod, attk_strong
             return attk_monster_health
         elif hit_roll == 1:
             print("You swing your sword...and completely miss the beast!")
+            attk_monster_health += 0
             return attk_monster_health
         elif (hit_roll + attk_strong_mod + attk_strong) >= attk_monster_defence \
                 and (hit_roll + attk_strong_mod + attk_strong) != 20 \
@@ -246,6 +259,7 @@ def player_attack(attk_dungeon_class, attk_strong_mod, attk_cha_mod, attk_strong
             return attk_monster_health
         elif hit_roll == 1:
             print("You strum your lute, maybe you should have tuned first...")
+            attk_monster_health += 0
             return attk_monster_health
         elif (hit_roll + attk_cha_mod + attk_cha) > monster_defence \
                 and (hit_roll + attk_cha_mod + cha_mod) != 20 \
@@ -259,7 +273,7 @@ def player_attack(attk_dungeon_class, attk_strong_mod, attk_cha_mod, attk_strong
         else:
             print("The Creature blocks the attack!")
             return attk_monster_health
-    elif dungeon_class == "Mage>":
+    elif dungeon_class == "Mage":
         if hit_roll == 20:
             print("It's a critical hit!")
             input("Roll for damage")
@@ -269,6 +283,7 @@ def player_attack(attk_dungeon_class, attk_strong_mod, attk_cha_mod, attk_strong
             return attk_monster_health
         elif hit_roll == 1:
             print("You wave your wand in the air, nothing happens...")
+            attk_monster_health += 0
             return attk_monster_health
         elif (hit_roll + attk_intel_mod + attk_intel) > monster_defence \
                 and (hit_roll + attk_intel_mod + intel_mod) != 20 \
@@ -284,23 +299,26 @@ def player_attack(attk_dungeon_class, attk_strong_mod, attk_cha_mod, attk_strong
             return attk_monster_health
 
 
-def monster_attack(player_hp_total, def_player_defence, def_monster_attk):  # main monster attack loop
+def monster_attack(player_hp_total, def_player_defence, def_monster_attk, monster_att_value):  # main monster attack loop
     monster_hit_roll = dm_dice(1, 20)  # rolls a hidden to player d20 to see if monster hit
-    if monster_hit_roll > def_monster_attk:  # works out if monster hit you
-        print("The Monster attacks you!")
-        monster_dmg_roll = dm_dice(1, 10)  # dm rolls for monster damage
-        input("Roll to Block")  # player rolls to block
-        player_block_roll = dice(1, 20)
-        if player_block_roll <= def_player_defence:  # bit janky
-            print("You block the monster's attack!")
-            return player_hp_total
-        else:
-            print(f"The creature hits you for {monster_dmg_roll} damage!")  # creature hits you and deals damage
-            player_hp_total -= monster_dmg_roll  # takes damage from player total health
-            print(f"Your current hp is {player_hp_total}")
-            return player_hp_total
+    if monster_hit_roll == 20:
+        monster_dmg_roll = (dm_dice(1, 10)) * 2
+        print(f"The monster hits you with a brutal attack dealing {monster_dmg_roll} damage!")
+        player_hp_total -= monster_dmg_roll
+        print(f"Your current hp is {player_hp_total}")
+        return player_hp_total
+    elif monster_hit_roll == 1:
+        print("The creature attacks you...and misses")
+    elif monster_hit_roll + monster_att_value > def_player_defence \
+            and monster_hit_roll + monster_att_value != 20 and monster_hit_roll + monster_att_value != 1:
+        print("The monster attacks you!")
+        monster_dmg_roll = dm_dice(1, 10)
+        print(f"The monster does {monster_dmg_roll} damage.")
+        player_hp_total -= monster_dmg_roll
+        print(f"Your current hp is {player_hp_total}")
+        return player_hp_total
     else:
-        print("The creature attacks you...and misses.")
+        print("You block the monster's attack!")
         return player_hp_total
 
 
@@ -340,8 +358,21 @@ def which_level():  # gets input for chosen level up skill
             return skill_up
         else:
             print("Invalid Stat Picked")
-            skill_up = False
-            return skill_up
+
+
+def loot_generator(loot_class):
+    loot_roll = dm_dice(1, 3)
+    if loot_roll == 1:
+        if loot_class == "Warrior":
+            return 1
+        elif loot_class == "Bard":
+            return 2
+        elif loot_class == "Mage":
+            return 3
+    elif loot_roll == 2:
+        return 4
+    elif loot_roll == 3:
+        return 5
 
 
 while play_game:
@@ -368,9 +399,9 @@ while play_game:
     display_stats(hp_total, strong, cha, intel, player_defence)  # displays final stats of the player
     input("Time to enter the dungeon.")  # intro screen 2
     while player_alive and player_escaped:  # main loop for game
-        door = dm_dice(1, 1)  # rolls a die to determine door opened currently only testing first door
+        door = dm_dice(1, 3)  # rolls a die to determine door opened currently only testing first door
         print("You kick open the door!")  # flavour text
-        if door == 1:  # checks if this door was rolled
+        if door == 1 or door == 2:  # checks if this door was rolled
             monster_name = monster_generator()  # generates a monster name
             monster_defence = monster_def_calc(monster_name)  # generates monster defence given the name
             monster_health = monster_health_calc(monster_name)  # generates monster health given the name
@@ -384,6 +415,20 @@ while play_game:
                                                    monster_defence, monster_health)
                     monster_alive = check_monster_alive(monster_health)
                     if not monster_alive:
+                        if monster_name == "Beholder":
+                            hp_total = mem_hp_total
+                            level_up = which_level()
+                            if level_up.lower() == "h":
+                                hp_total += 1
+                            elif level_up.lower() == "d":
+                                player_defence += 1
+                            elif level_up.lower() == "s":
+                                strong += 1
+                            elif level_up.lower() == "c":
+                                cha += 1
+                            elif level_up.lower() == "i":
+                                intel += 1
+                            display_stats(hp_total, strong, cha, intel, player_defence)
                         hp_total = mem_hp_total
                         level_up = which_level()
                         if level_up.lower() == "h":
@@ -398,7 +443,7 @@ while play_game:
                             intel += 1
                         display_stats(hp_total, strong, cha, intel, player_defence)
                         continue
-                    hp_total = monster_attack(hp_total, player_defence, monster_defence)
+                    hp_total = monster_attack(hp_total, player_defence, monster_defence, monster_attk)
                     player_alive = check_alive(hp_total)
                 elif action.lower() == "r":  # if player runs they will have to roll
                     input("Roll to escape!")
@@ -411,11 +456,51 @@ while play_game:
                         print("The creature grabs you as you try to escape!")
                         print("You have died.")
                         player_alive = False
-        elif door == 2:  # not done yet
-            action = input("You find a chest, What do you do? ([O]pen, [C]heck)")
+        elif door == 3:
+            action = input("You find a chest! [O]pen it?")
             if action.lower() == "o":
-                print("You open the chest.")
-            elif action.lower() == "c":
+                chest_roll = dm_dice(1, 20)
+                if 1 < chest_roll < 5:
+                    chest_dmg_roll = dm_dice(1, 10)
+                    print(f"The Chest is trapped and deals {chest_dmg_roll} damage to you!")
+                    print(f"Your current hp is {hp_total}")
+                else:
+                    print("You open the chest.")
+                    loot = loot_generator(dungeon_class)
+                    if loot == 1:
+                        print("You find a legendary sword, it increases your strength by 1")
+                        strong += 1
+                    elif loot == 2:
+                        print("You find a mystical lute, it increases your charisma by 1")
+                        cha += 1
+                    elif loot == 3:
+                        print("You find a magical wand, it increases your intelligence by 1")
+                        intel += 1
+                    elif loot == 4:
+                        print("You find a potion of experience")
+                        level_up = which_level()
+                        if level_up.lower() == "h":
+                            hp_total += 1
+                        elif level_up.lower() == "d":
+                            player_defence += 1
+                        elif level_up.lower() == "s":
+                            strong += 1
+                        elif level_up.lower() == "c":
+                            cha += 1
+                        elif level_up.lower() == "i":
+                            intel += 1
+                        display_stats(hp_total, strong, cha, intel, player_defence)
+                    elif loot == 5:
+                        if dungeon_class == "Warrior":
+                            print("You find some new armour, it increases your defence by 1")
+                            player_defence += 1
+                        elif dungeon_class == "Bard":
+                            print("You find a new tunic, it increases your defence by 1")
+                            player_defence += 1
+                        elif dungeon_class == "Mage":
+                            print("You find a new robe, it increases your defence by 1")
+                            player_defence += 1
+            elif action.lower() == "c":  # not done yet
                 print("You check the chest for traps.")
         elif door == 3:  # not done yet
             action = input("You encounter a strange man who asks you a riddle?")
@@ -424,7 +509,7 @@ while play_game:
             elif action in ("Run", "run", "RUN", "r", "R"):
                 print("You Attack.")
     play_again_input = input("Play Again? (y/n)")  # asks if player wants to play again once dead
-    if play_again_input.lower == 'Y':
+    if play_again_input.lower() == 'y':
         play_game = True
     elif play_again_input.lower() == "n":
         play_game = False
