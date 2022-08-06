@@ -1,11 +1,12 @@
 import random
+from colorama import init, Fore, Style
 
 play_game = True
 
 
 def dice(low_dice, high_dice):  # dice function you give it the low side and high side of the dice e.g. 1, 6 for a d6
     dice_roll = random.randint(low_dice, high_dice)
-    print(f"You rolled {dice_roll}.")
+    print("You rolled", Fore.GREEN, dice_roll, Style.RESET_ALL)
     return dice_roll
 
 
@@ -230,7 +231,7 @@ def player_attack(attk_dungeon_class, attk_strong_mod, attk_cha_mod, attk_strong
             print("It's a critical hit!")
             input("Roll for damage")
             dmg_roll = (dice(1, 10)) * 2
-            print(f"Your sword slices the creature for {dmg_roll} damage!")
+            print("Your sword slices the creature for", Fore.GREEN, dmg_roll, Style.RESET_ALL, "damage!")
             attk_monster_health -= dmg_roll
             return attk_monster_health
         elif hit_roll == 1:
@@ -243,7 +244,7 @@ def player_attack(attk_dungeon_class, attk_strong_mod, attk_cha_mod, attk_strong
             print("You swing your sword at the creature, it hits!")
             input("Roll for damage")
             dmg_roll = dice(1, 10)
-            print(f"Your sword slices the creature for {dmg_roll} damage!")
+            print("Your sword slices the creature for", Fore.GREEN, dmg_roll, Style.RESET_ALL, "damage!")
             attk_monster_health -= dmg_roll
             return attk_monster_health
         else:
@@ -254,7 +255,7 @@ def player_attack(attk_dungeon_class, attk_strong_mod, attk_cha_mod, attk_strong
             print("It's a critical hit!")
             input("Roll for damage")
             dmg_roll = (dice(1, 10)) * 2
-            print(f"Your spell echo's around the room and hits the beast for {dmg_roll} damage!")
+            print("Your spell echo's around the room and hits the beast for", Fore.GREEN, dmg_roll, Style.RESET_ALL,"damage!")
             attk_monster_health -= dmg_roll
             return attk_monster_health
         elif hit_roll == 1:
@@ -267,7 +268,7 @@ def player_attack(attk_dungeon_class, attk_strong_mod, attk_cha_mod, attk_strong
             print("You strum your lute and send a spell right at the creature!")
             input("Roll for damage")
             dmg_roll = dice(1, 10)
-            print(f"Your spell hits the creature for {dmg_roll} damage!")
+            print("Your spell hits the creature for", Fore.GREEN, dmg_roll, Style.RESET_ALL, "damage!")
             attk_monster_health -= dmg_roll
             return attk_monster_health
         else:
@@ -278,7 +279,7 @@ def player_attack(attk_dungeon_class, attk_strong_mod, attk_cha_mod, attk_strong
             print("It's a critical hit!")
             input("Roll for damage")
             dmg_roll = (dice(1, 10)) * 2
-            print(f"You cast a huge fireball engulfing the creature for {dmg_roll} damage!")
+            print("You cast a huge fireball engulfing the creature for", Fore.GREEN, dmg_roll, Style.RESET_ALL, "damage!")
             attk_monster_health -= dmg_roll
             return attk_monster_health
         elif hit_roll == 1:
@@ -291,7 +292,7 @@ def player_attack(attk_dungeon_class, attk_strong_mod, attk_cha_mod, attk_strong
             print("You cast a fireball directly at the creature!")
             input("Roll for damage")
             dmg_roll = dice(1, 10)
-            print(f"Your fireball scorches the creature for {dmg_roll} damage!")
+            print("Your fireball scorches the creature for", Fore.GREEN, dmg_roll, Style.RESET_ALL, "damage!")
             attk_monster_health -= dmg_roll
             return attk_monster_health
         else:
@@ -303,19 +304,20 @@ def monster_attack(player_hp_total, def_player_defence, def_monster_attk, monste
     monster_hit_roll = dm_dice(1, 20)  # rolls a hidden to player d20 to see if monster hit
     if monster_hit_roll == 20:
         monster_dmg_roll = (dm_dice(1, 10)) * 2
-        print(f"The monster hits you with a brutal attack dealing {monster_dmg_roll} damage!")
+        print("The monster hits you with a brutal attack dealing", Fore.RED, monster_dmg_roll, Style.RESET_ALL, "damage!")
         player_hp_total -= monster_dmg_roll
-        print(f"Your current hp is {player_hp_total}")
+        print("Your current hp is", Fore.GREEN, player_hp_total, Style.RESET_ALL)
         return player_hp_total
     elif monster_hit_roll == 1:
         print("The creature attacks you...and misses")
+        return player_hp_total
     elif monster_hit_roll + monster_att_value > def_player_defence \
             and monster_hit_roll + monster_att_value != 20 and monster_hit_roll + monster_att_value != 1:
         print("The monster attacks you!")
         monster_dmg_roll = dm_dice(1, 10)
-        print(f"The monster does {monster_dmg_roll} damage.")
+        print("The monster does", Fore.RED, monster_dmg_roll, Style.RESET_ALL, "damage.")
         player_hp_total -= monster_dmg_roll
-        print(f"Your current hp is {player_hp_total}")
+        print("Your current hp is", Fore.GREEN, player_hp_total, Style.RESET_ALL)
         return player_hp_total
     else:
         print("You block the monster's attack!")
@@ -325,7 +327,7 @@ def monster_attack(player_hp_total, def_player_defence, def_monster_attk, monste
 def check_alive(check_hp_total):  # function to check  if the player is alive
     if check_hp_total <= 0:
         check_player_alive = False
-        print("You have died")
+        print("±±±±±±±±±±±±You have died±±±±±±±±±±±±±")
         return check_player_alive
     else:
         check_player_alive = True
@@ -380,7 +382,9 @@ while play_game:
     player_escaped = True
     player_alive = True
     monster_alive = True
-    print('Welcome To The Dungeon!')  # intro screen
+    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+    print('        Welcome To The Dungeon!')  # intro screen
+    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
     race = race_picker()  # asks the player their race and stores result in race
     dungeon_class = class_picker()  # asks the player their class and stores result in class
     print(f"Ah I see now, you're {race} {dungeon_class}.")  # prints players chosen race and class
@@ -397,7 +401,9 @@ while play_game:
     cha = cha_calc()  # calculates players charisma
     intel = intel_calc()  # calculates players intelligence
     display_stats(hp_total, strong, cha, intel, player_defence)  # displays final stats of the player
-    input("Time to enter the dungeon.")  # intro screen 2
+    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+    input("      Time to enter the dungeon.")  # intro screen 2
+    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
     while player_alive and player_escaped:  # main loop for game
         door = dm_dice(1, 3)  # rolls a die to determine door opened currently only testing first door
         print("You kick open the door!")  # flavour text
@@ -415,11 +421,12 @@ while play_game:
                                                    monster_defence, monster_health)
                     monster_alive = check_monster_alive(monster_health)
                     if not monster_alive:
+                        hp_total = mem_hp_total
                         if monster_name == "Beholder":
-                            hp_total = mem_hp_total
                             level_up = which_level()
                             if level_up.lower() == "h":
                                 hp_total += 1
+                                mem_hp_total += 1
                             elif level_up.lower() == "d":
                                 player_defence += 1
                             elif level_up.lower() == "s":
@@ -429,10 +436,10 @@ while play_game:
                             elif level_up.lower() == "i":
                                 intel += 1
                             display_stats(hp_total, strong, cha, intel, player_defence)
-                        hp_total = mem_hp_total
                         level_up = which_level()
                         if level_up.lower() == "h":
                             hp_total += 1
+                            mem_hp_total += 1
                         elif level_up.lower() == "d":
                             player_defence += 1
                         elif level_up.lower() == "s":
@@ -443,7 +450,9 @@ while play_game:
                             intel += 1
                         display_stats(hp_total, strong, cha, intel, player_defence)
                         continue
+                    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
                     hp_total = monster_attack(hp_total, player_defence, monster_defence, monster_attk)
+                    print("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
                     player_alive = check_alive(hp_total)
                 elif action.lower() == "r":  # if player runs they will have to roll
                     input("Roll to escape!")
@@ -463,6 +472,8 @@ while play_game:
                 if 1 < chest_roll < 5:
                     chest_dmg_roll = dm_dice(1, 10)
                     print(f"The Chest is trapped and deals {chest_dmg_roll} damage to you!")
+                    hp_total = chest_dmg_roll - hp_total
+                    player_alive = check_alive(hp_total)
                     print(f"Your current hp is {hp_total}")
                 else:
                     print("You open the chest.")
