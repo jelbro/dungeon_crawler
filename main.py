@@ -472,7 +472,7 @@ while play_game:
                 if 1 < chest_roll < 5:
                     chest_dmg_roll = dm_dice(1, 10)
                     print(f"The Chest is trapped and deals {chest_dmg_roll} damage to you!")
-                    hp_total = chest_dmg_roll - hp_total
+                    hp_total = hp_total - chest_dmg_roll
                     player_alive = check_alive(hp_total)
                     print(f"Your current hp is {hp_total}")
                 else:
