@@ -1,5 +1,7 @@
 import random
-from colorama import init, Fore, Style
+from colorama import Fore, Style, init
+
+init(convert=True)
 
 play_game = True
 
@@ -255,7 +257,7 @@ def player_attack(attk_dungeon_class, attk_strong_mod, attk_cha_mod, attk_strong
             print("It's a critical hit!")
             input("Roll for damage")
             dmg_roll = (dice(1, 10)) * 2
-            print("Your spell echo's around the room and hits the beast for", Fore.GREEN, dmg_roll, Style.RESET_ALL,"damage!")
+            print("Your spell echo's around the room and hits the beast for", Fore.GREEN, dmg_roll, Style.RESET_ALL, "damage!")
             attk_monster_health -= dmg_roll
             return attk_monster_health
         elif hit_roll == 1:
@@ -463,8 +465,11 @@ while play_game:
                         break
                     else:
                         print("The creature grabs you as you try to escape!")
-                        print("You have died.")
-                        player_alive = False
+                        escape_dmg = dm_dice(1, 15)
+                        print(f"It deals {escape_dmg} damage to you!")
+                        hp_total = hp_total - escape_dmg
+                        player_alive = check_alive(hp_total)
+                        print(f"Your current hp is {hp_total}")
         elif door == 3:
             action = input("You find a chest! [O]pen it?")
             if action.lower() == "o":
@@ -472,7 +477,7 @@ while play_game:
                 if 1 < chest_roll < 5:
                     chest_dmg_roll = dm_dice(1, 10)
                     print(f"The Chest is trapped and deals {chest_dmg_roll} damage to you!")
-                    hp_total = chest_dmg_roll - hp_total
+                    hp_total = hp_total - chest_dmg_roll
                     player_alive = check_alive(hp_total)
                     print(f"Your current hp is {hp_total}")
                 else:
@@ -525,4 +530,4 @@ while play_game:
     elif play_again_input.lower() == "n":
         play_game = False
     else:
-        play_game = False
+        play_game = True
