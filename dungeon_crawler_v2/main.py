@@ -117,12 +117,35 @@ def display_player_stats(player):
             '-'----------------------------------'
             """)
 
+def dungeon_entrance():
+    return input(r"""          
+           .-.---------------------------------.-.
+          ((o))                                   )
+           \U/_______          _____         ____/
+             |                                  |
+             |    You walk up to the enterance  |
+             |  of the dungeon, what do you do? |
+             |                                  |
+             |      (k) kick down the door      |
+             |                                  |
+             |      (l) listen at the door      |
+             |                                  |
+             |              (r) run             |
+             |                                  |
+             |    (i) inventory   (s) stats     |
+             |____    _______    __  ____    ___|
+            /A\                                  \
+           ((o))                                  )
+            '-'----------------------------------'
+            """)
+
+
 def new_game():
     player[0] = race_select()
     player[1] = class_select()
     get_player_stats()
     display_player_stats(player) 
-    #  dungeon()
+    dungeon(player)
     #  death_screen()
     #  save_score()
     #  show_highscores()
@@ -391,6 +414,27 @@ def get_player_stats():
             continue
     num7 = 00
     print(player) 
+
+def dungeon(player):
+    player_choice = dungeon_entrance()
+    while True:
+        if player_choice.lower() == 'k':
+            kick_door()
+            break
+        elif player_choice.lower() == 'l':
+            listen_door()
+            break
+        elif player_choice.lower() == 'r':
+            run()
+            break
+        elif player_choice.lower() == 'i':
+            show_invent()
+            break
+        elif player_choice.lower() == 's':
+            display_player_stats(player)
+            dungeon(player)
+        else:
+            continue
 
 def dice(n):
     return random.randint(1, n)
