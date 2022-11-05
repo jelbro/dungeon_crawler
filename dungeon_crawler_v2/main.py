@@ -1,6 +1,8 @@
 import random
 #        Race, Class, Str, Def,  Con,  Int,  Dex,  Cha  
 player = ['h', 'w', '10', '10', '10', '10', '10', '10']
+#           Str,   Def,   Con,  Int,  Dex,  Cha
+stat_mods = []
 
 def main_menu():
     return input(r"""          
@@ -92,7 +94,7 @@ def player_stats_screen(n1, n2, n3, n4, n5, n6):
             '-'----------------------------------'
             """)
 
-def display_player_stats(player):
+def display_player_stats(player, stat_mods):
     print(r"""          
            .-.---------------------------------.-.
           ((o))                                   )
@@ -101,11 +103,11 @@ def display_player_stats(player):
              |          Your stats are:         |
              |                                  |""", end ="")
     print(f"""
-             |        Str:{player[2]:02d}      Def:{player[3]:02d}        |
+             |   Str:{player[2]:02d}({stat_mods[0]:02d})      Def:{player[3]:02d}({stat_mods[1]:02d})     |
              |                                  |
-             |        Cons:{player[4]:02d}     Int:{player[5]:02d}        |
+             |   Cons:{player[4]:02d}({stat_mods[2]:02d})     Int:{player[5]:02d}({stat_mods[3]:02d})     |
              |                                  |
-             |        Dex:{player[6]:02d}      Cha:{player[7]:02d}        |
+             |   Dex:{player[6]:02d}({stat_mods[4]:02d})      Cha:{player[7]:02d}({stat_mods[5]:02d})     |
              |                                  |
              |                                  |""", end="")
     return input(r"""
@@ -143,8 +145,8 @@ def new_game():
     player[0] = race_select()
     player[1] = class_select()
     get_player_stats()
-    display_player_stats(player) 
-    dungeon(player)
+    display_player_stats(player, stat_mods) 
+    dungeon(player, stat_mods)
     #  death_screen()
     #  save_score()
     #  show_highscores()
@@ -354,9 +356,13 @@ def get_player_stats():
         else:
             continue
     num6 = 00
-    print(player) 
+    j = 2 
+    for i in range(6):
+        stat_mods.append(modifier_calc(player, j)) 
+        j = j + 1
+    print(stat_mods)
 
-def dungeon(player):
+def dungeon(player, stat_mods):
     player_choice = dungeon_entrance()
     while True:
         if player_choice.lower() == 'k':
@@ -372,8 +378,8 @@ def dungeon(player):
             show_invent()
             break
         elif player_choice.lower() == 's':
-            display_player_stats(player)
-            dungeon(player)
+            display_player_stats(player, stat_mods)
+            dungeon(player, stat_mods)
         else:
             continue
 
@@ -391,6 +397,40 @@ def roll_for_attribute():
     for i in range(len(final_dice_set)):
             final_number += final_dice_set[i]
     return final_number
+
+def modifier_calc(player, x):
+        if int(player[x]) == 1:
+            return -5
+        elif int(player[x]) >= 2 and int(player[x]) <= 3:
+            return -4 
+        elif int(player[x]) >= 4 and int(player[x]) <= 5:
+            return -3
+        elif int(player[x]) >= 6 and int(player[x]) <= 7:
+            return -2 
+        elif int(player[x]) >= 8 and int(player[x]) <= 9:
+            return -1
+        elif int(player[x]) >= 10 and int(player[x]) <= 11:
+            return 0
+        elif int(player[x]) >= 12 and int(player[x]) <= 13:
+            return 1
+        elif int(player[x]) >= 14 and int(player[x]) <= 15:
+            return 2
+        elif int(player[x]) >= 16 and int(player[x]) <= 17:
+            return 3
+        elif int(player[x]) >= 18 and int(player[x]) <= 19:
+            return 4
+        elif int(player[x]) >= 20 and int(player[x]) <= 21:
+            return 5
+        elif int(player[x]) >= 22 and int(player[x]) <= 23:
+            return 6
+        elif int(player[x]) >= 24 and int(player[x]) <= 25:
+            return 7
+        elif int(player[x]) >= 26 and int(player[x]) <= 27:
+            return 8
+        elif int(player[x]) >= 28 and int(player[x]) <= 29:
+            return 9
+        elif int(player[x]) >= 30:
+            return 10 
 
 while True:
     menu_choice = main_menu()
