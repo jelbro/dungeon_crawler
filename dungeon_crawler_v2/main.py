@@ -3,6 +3,8 @@ import random
 player = ['h', 'w', '10', '10', '10', '10', '10', '10']
 #           Str,   Def,   Con,  Int,  Dex,  Cha
 stat_mods = []
+# [[[item name][skill type][combat die][equipable]]]
+player_inventory = []
 
 def main_menu():
     return input(r"""          
@@ -146,7 +148,8 @@ def new_game():
     player[1] = class_select()
     get_player_stats()
     get_modifiers(stat_mods, player)
-    display_player_stats(player, stat_mods) 
+    display_player_stats(player, stat_mods)
+    give_player_items(player_inventory, player)
     dungeon(player, stat_mods)
     #  death_screen()
     #  save_score()
@@ -220,6 +223,17 @@ def get_modifiers(stat_mods, player):
         stat_mods.append((player[i] - 10) // 2)
         i = i + 1
 
+def give_player_items(player_inventory, player):
+    mage_items = ["m",["Magic Staff","int", 6, True]]
+    warrior_items = ["w",["Long Sword","str", 6, True]]
+    ranger_items = ["r",["Short Bow","dex", 6, True]]
+    bard_items = ["b",["Lute","cha", 6, True]]
+    starting_items = [mage_items, warrior_items, ranger_items, bard_items]
+    for i in range(len(starting_items)):
+        if starting_items[i][0] == player[1]:
+            player_inventory = starting_items[i][1]
+    print(player_inventory)
+    
 def dungeon(player, stat_mods):
     player_choice = dungeon_entrance()
     while True:
