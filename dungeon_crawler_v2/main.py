@@ -70,15 +70,15 @@ def class_select_menu():
             '-'----------------------------------'
             """)
 
-def player_stats_screen(n1, n2, n3, n4, n5, n6):
+def player_stats_screen(stat_numbers):
     print(r"""          
            .-.---------------------------------.-.
           ((o))                                   )
            \U/_______          _____         ____/
              |      Stat points to allocate     |
              |                                  |""")
-    print(f"             |             {n1:02d} {n2:02d} {n3:02d}             |")
-    print(f"             |             {n4:02d} {n5:02d} {n6:02d}             |", end = "")
+    print(f"             |             {stat_numbers[0]:02d} {stat_numbers[1]:02d} {stat_numbers[2]:02d}             |")
+    print(f"             |             {stat_numbers[3]:02d} {stat_numbers[4]:02d} {stat_numbers[5]:02d}             |", end = "")
     return input(r"""
              |                                  |
              |     (s) Str (d) Def (c) Cons     |
@@ -105,7 +105,7 @@ def display_player_stats(player, stat_mods):
     print(f"""
              |   Str:{player[2]:02d}({stat_mods[0]:02d})      Def:{player[3]:02d}({stat_mods[1]:02d})     |
              |                                  |
-             |   Cons:{player[4]:02d}({stat_mods[2]:02d})     Int:{player[5]:02d}({stat_mods[3]:02d})     |
+             |   Con:{player[4]:02d}({stat_mods[2]:02d})     Int:{player[5]:02d}({stat_mods[3]:02d})      |
              |                                  |
              |   Dex:{player[6]:02d}({stat_mods[4]:02d})      Cha:{player[7]:02d}({stat_mods[5]:02d})     |
              |                                  |
@@ -175,192 +175,48 @@ def class_select():
            continue
 
 def get_player_stats():
-    str_chosen = False
-    def_chosen = False
-    cons_chosen = False
-    int_chosen = False
-    char_chosen = False
-    dex_chosen = False
+    str_chosen, def_chosen, cons_chosen, int_chosen, char_chosen, dex_chosen = False, False, False, False, False, False
     num1, num2, num3, num4, num5, num6 = roll_for_attribute(), roll_for_attribute(), roll_for_attribute(), roll_for_attribute(), roll_for_attribute(), roll_for_attribute()
-    while True:
-        stat_choice = player_stats_screen(num1, num2, num3, num4, num5, num6)
-        if stat_choice == 's' and str_chosen != True:
-            player[2] = num1 
-            str_chosen = False
-            break
-        elif stat_choice == 'd' and def_chosen != True:
-            player[3] = num1 
-            def_chosen = True
-            break
-        elif stat_choice == 'c' and cons_chosen != True:
-            player[4] = num1 
-            cons_chosen = True
-            break
-        elif stat_choice == 'i' and int_chosen != True:
-            player[5] = num1 
-            int_chosen = True
-            break
-        elif stat_choice == 'x' and dex_chosen != True:
-            player[6] = num1 
-            dex_chosen = True
-            break
-        elif stat_choice == 'h' and char_chosen != True:
-            player[7] = num1 
-            char_chosen = True
-            break
-        else:
-            continue
-    num1 = 00
-    while True:
-        stat_choice = player_stats_screen(num1, num2, num3, num4, num5, num6)
-        if stat_choice == 's' and str_chosen != True:
-            player[2] = num2
-            str_chosen = False
-            break
-        elif stat_choice == 'd' and def_chosen != True:
-            player[3] = num2
-            def_chosen = True
-            break
-        elif stat_choice == 'c' and cons_chosen != True:
-            player[4] = num2
-            cons_chosen = True
-            break
-        elif stat_choice == 'i' and int_chosen != True:
-            player[5] = num2
-            int_chosen = True
-            break
-        elif stat_choice == 'x' and dex_chosen != True:
-            player[6] = num2
-            dex_chosen = True
-            break
-        elif stat_choice == 'h' and char_chosen != True:
-            player[7] = num2
-            char_chosen = True
-            break
-        else:
-            continue
-    num2 = 00
-    while True:
-        stat_choice = player_stats_screen(num1, num2, num3, num4, num5, num6)
-        if stat_choice == 's' and str_chosen != True:
-            player[2] = num3
-            str_chosen = False
-            break
-        elif stat_choice == 'd' and def_chosen != True:
-            player[3] = num3 
-            def_chosen = True
-            break
-        elif stat_choice == 'c' and cons_chosen != True:
-            player[4] = num3
-            cons_chosen = True
-            break
-        elif stat_choice == 'i' and int_chosen != True:
-            player[5] = num3
-            int_chosen = True
-            break
-        elif stat_choice == 'x' and dex_chosen != True:
-            player[6] = num3
-            dex_chosen = True
-            break
-        elif stat_choice == 'h' and char_chosen != True:
-            player[7] = num3
-            char_chosen = True
-            break
-        else:
-            continue
-    num3 = 00
-    while True:
-        stat_choice = player_stats_screen(num1, num2, num3, num4, num5, num6)
-        if stat_choice == 's' and str_chosen != True:
-            player[2] = num4
-            str_chosen = False
-            break
-        elif stat_choice == 'd' and def_chosen != True:
-            player[3] = num4
-            def_chosen = True
-            break
-        elif stat_choice == 'c' and cons_chosen != True:
-            player[4] = num4
-            cons_chosen = True
-            break
-        elif stat_choice == 'i' and int_chosen != True:
-            player[5] = num4
-            int_chosen = True
-            break
-        elif stat_choice == 'x' and dex_chosen != True:
-            player[6] = num4
-            dex_chosen = True
-            break
-        elif stat_choice == 'h' and char_chosen != True:
-            player[7] = num4
-            char_chosen = True
-            break
-        else:
-            continue
-    num4 = 00
-    while True:  
-        stat_choice = player_stats_screen(num1, num2, num3, num4, num5, num6)
-        if stat_choice == 's' and str_chosen != True:
-            player[2] = num5
-            str_chosen = False
-            break
-        elif stat_choice == 'd' and def_chosen != True:
-            player[3] = num5
-            def_chosen = True
-            break
-        elif stat_choice == 'c' and cons_chosen != True:
-            player[4] = num5
-            cons_chosen = True
-            break
-        elif stat_choice == 'i' and int_chosen != True:
-            player[5] = num5
-            int_chosen = True
-            break
-        elif stat_choice == 'x' and dex_chosen != True:
-            player[6] = num5
-            dex_chosen = True
-            break
-        elif stat_choice == 'h' and char_chosen != True:
-            player[7] = num5
-            char_chosen = True
-            break
-        else:
-            continue
-    num5 = 00
-    while True:
-        stat_choice = player_stats_screen(num1, num2, num3, num4, num5, num6)
-        if stat_choice == 's' and str_chosen != True:
-            player[2] = num6
-            str_chosen = False
-            break
-        elif stat_choice == 'd' and def_chosen != True:
-            player[3] = num6
-            def_chosen = True
-            break
-        elif stat_choice == 'c' and cons_chosen != True:
-            player[4] = num6
-            cons_chosen = True
-            break
-        elif stat_choice == 'i' and int_chosen != True:
-            player[5] = num6
-            int_chosen = True
-            break
-        elif stat_choice == 'x' and dex_chosen != True:
-            player[6] = num6
-            dex_chosen = True
-            break
-        elif stat_choice == 'h' and char_chosen != True:
-            player[7] = num6
-            char_chosen = True
-            break
-        else:
-            continue
-    num6 = 00
+    stat_numbers = [num1, num2, num3, num4, num5, num6]
+    for i in range(6): 
+        while True:
+            stat_choice = player_stats_screen(stat_numbers)
+            if stat_choice == 's' and str_chosen != True:
+                player[2] = stat_numbers[i] 
+                str_chosen = True 
+                stat_numbers[i]  = 00
+                break
+            elif stat_choice == 'd' and def_chosen != True:
+                player[3] = stat_numbers[i]
+                def_chosen = True
+                stat_numbers[i]  = 00
+                break
+            elif stat_choice == 'c' and cons_chosen != True:
+                player[4] = stat_numbers[i]
+                cons_chosen = True
+                stat_numbers[i]  = 00
+                break
+            elif stat_choice == 'i' and int_chosen != True:
+                player[5] = stat_numbers[i]
+                int_chosen = True
+                stat_numbers[i]  = 00
+                break
+            elif stat_choice == 'x' and dex_chosen != True:
+                player[6] = stat_numbers[i]
+                dex_chosen = True
+                stat_numbers[i]  = 00
+                break
+            elif stat_choice == 'h' and char_chosen != True:
+                player[7] = stat_numbers[i] 
+                char_chosen = True
+                stat_numbers[i]  = 00
+                break
+            else:
+                continue
     j = 2 
-    for i in range(6):
+    for k in range(6):
         stat_mods.append(modifier_calc(player, j)) 
         j = j + 1
-    print(stat_mods)
 
 def dungeon(player, stat_mods):
     player_choice = dungeon_entrance()
@@ -399,6 +255,7 @@ def roll_for_attribute():
     return final_number
 
 def modifier_calc(player, x):
+    #  for i in 
         if int(player[x]) == 1:
             return -5
         elif int(player[x]) >= 2 and int(player[x]) <= 3:
