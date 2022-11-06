@@ -4,7 +4,6 @@ player = ['h', 'w', '10', '10', '10', '10', '10', '10']
 #           Str,   Def,   Con,  Int,  Dex,  Cha
 stat_mods = []
 # [[[item name][skill type][combat die][equipable]]]
-player_inventory = []
 
 def main_menu():
     return input(r"""          
@@ -120,6 +119,29 @@ def display_player_stats(player, stat_mods):
             '-'----------------------------------'
             """)
 
+def display_player_inventory(player_inventory):
+    print(r"""          
+           .-.---------------------------------.-.
+          ((o))                                   )
+           \U/_______          _____         ____/
+             |                                  |
+             |    Item Name:  Stat:  Hit die:   |
+             |                                  |""", end ="")
+    print("""
+             |""", end="")
+    name_length = len(player_inventory[0])
+    stat_length = len(player_inventory[1])
+    hit_length = len(str(player_inventory[2]))
+    front_spacing = ((36 - (name_length + stat_length + hit_length + 6)) // 2)
+    for i in range(front_spacing):
+        print(" ", end="")
+    print(f"{player_inventory[0]}   {player_inventory[1]}   {player_inventory[2]}")
+    for i in range(front_spacing):
+        if i == (front_spacing - 1):
+            print("|")
+        else:
+            print(" ", end="")
+    
 def dungeon_entrance():
     return input(r"""          
            .-.---------------------------------.-.
@@ -144,12 +166,14 @@ def dungeon_entrance():
 
 
 def new_game():
+    player_inventory = []
     player[0] = race_select()
     player[1] = class_select()
     get_player_stats()
     get_modifiers(stat_mods, player)
     display_player_stats(player, stat_mods)
-    give_player_items(player_inventory, player)
+    player_inventory = give_player_items(player_inventory, player)
+    display_player_inventory(player_inventory)
     dungeon(player, stat_mods)
     #  death_screen()
     #  save_score()
@@ -232,7 +256,7 @@ def give_player_items(player_inventory, player):
     for i in range(len(starting_items)):
         if starting_items[i][0] == player[1]:
             player_inventory = starting_items[i][1]
-    print(player_inventory)
+    return player_inventory
     
 def dungeon(player, stat_mods):
     player_choice = dungeon_entrance()
