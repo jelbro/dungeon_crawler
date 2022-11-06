@@ -105,7 +105,7 @@ def display_player_stats(player, stat_mods):
     print(f"""
              |   Str:{player[2]:02d}({stat_mods[0]:02d})      Def:{player[3]:02d}({stat_mods[1]:02d})     |
              |                                  |
-             |   Con:{player[4]:02d}({stat_mods[2]:02d})     Int:{player[5]:02d}({stat_mods[3]:02d})      |
+             |   Con:{player[4]:02d}({stat_mods[2]:02d})      Int:{player[5]:02d}({stat_mods[3]:02d})     |
              |                                  |
              |   Dex:{player[6]:02d}({stat_mods[4]:02d})      Cha:{player[7]:02d}({stat_mods[5]:02d})     |
              |                                  |
@@ -145,6 +145,7 @@ def new_game():
     player[0] = race_select()
     player[1] = class_select()
     get_player_stats()
+    get_modifiers(stat_mods, player)
     display_player_stats(player, stat_mods) 
     dungeon(player, stat_mods)
     #  death_screen()
@@ -213,10 +214,11 @@ def get_player_stats():
                 break
             else:
                 continue
-    j = 2 
-    for k in range(6):
-        stat_mods.append(modifier_calc(player, j)) 
-        j = j + 1
+
+def get_modifiers(stat_mods, player): 
+    for i in range(2, 8):
+        stat_mods.append((player[i] - 10) // 2)
+        i = i + 1
 
 def dungeon(player, stat_mods):
     player_choice = dungeon_entrance()
@@ -253,42 +255,7 @@ def roll_for_attribute():
     for i in range(len(final_dice_set)):
             final_number += final_dice_set[i]
     return final_number
-
-def modifier_calc(player, x):
-    #  for i in 
-        if int(player[x]) == 1:
-            return -5
-        elif int(player[x]) >= 2 and int(player[x]) <= 3:
-            return -4 
-        elif int(player[x]) >= 4 and int(player[x]) <= 5:
-            return -3
-        elif int(player[x]) >= 6 and int(player[x]) <= 7:
-            return -2 
-        elif int(player[x]) >= 8 and int(player[x]) <= 9:
-            return -1
-        elif int(player[x]) >= 10 and int(player[x]) <= 11:
-            return 0
-        elif int(player[x]) >= 12 and int(player[x]) <= 13:
-            return 1
-        elif int(player[x]) >= 14 and int(player[x]) <= 15:
-            return 2
-        elif int(player[x]) >= 16 and int(player[x]) <= 17:
-            return 3
-        elif int(player[x]) >= 18 and int(player[x]) <= 19:
-            return 4
-        elif int(player[x]) >= 20 and int(player[x]) <= 21:
-            return 5
-        elif int(player[x]) >= 22 and int(player[x]) <= 23:
-            return 6
-        elif int(player[x]) >= 24 and int(player[x]) <= 25:
-            return 7
-        elif int(player[x]) >= 26 and int(player[x]) <= 27:
-            return 8
-        elif int(player[x]) >= 28 and int(player[x]) <= 29:
-            return 9
-        elif int(player[x]) >= 30:
-            return 10 
-
+ 
 while True:
     menu_choice = main_menu()
     if menu_choice.lower() == 'n':
