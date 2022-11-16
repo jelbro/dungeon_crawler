@@ -1,10 +1,24 @@
 import random
+
+def monster():
+    print("A monster appears")
+    pass
+
+def chest():
+    print("A chest appears")
+    pass
+
+def riddle():
+    print("A riddle appears")
+    pass
+
 #        Race, Class, Str, Def,  Con,  Int,  Dex,  Cha  
 player = ['h', 'w', '10', '10', '10', '10', '10', '10']
 #           Str,   Def,   Con,  Int,  Dex,  Cha
 stat_mods = []
 # [[[item name][skill type][combat die][equipable]]]
 player_inventory = []
+doors = [monster(), chest(), riddle()]
 
 def main_menu():
     return input(r"""          
@@ -138,7 +152,7 @@ def display_player_inventory(player_inventory):
         print(" ", end="")
     print(f"{player_inventory[0]}    {player_inventory[1]}    {player_inventory[2]}",end="")
     for i in range(front_spacing):
-        if i == (front_spacing - 2):
+        if i == (front_spacing-1):
             print("|", end="")
         else:
             print(" ", end="")
@@ -179,14 +193,14 @@ def dungeon_entrance():
             """)
 
 
-def new_game(player_inventory):
+def new_game(player_inventory, doors):
     player[0] = race_select()
     player[1] = class_select()
     get_player_stats()
     get_modifiers(stat_mods, player)
     display_player_stats(player, stat_mods)
     player_inventory = give_player_items(player_inventory, player)
-    dungeon(player, stat_mods, player_inventory)
+    dungeon(player, stat_mods, player_inventory, doors)
     #  death_screen()
     #  save_score()
     #  show_highscores()
@@ -270,11 +284,14 @@ def give_player_items(player_inventory, player):
             player_inventory = starting_items[i][1]
     return player_inventory
     
-def dungeon(player, stat_mods, player_inventory):
+def kick_door(doors):
+   return doors[dice(3)] 
+
+def dungeon(player, stat_mods, player_inventory, doors):
     player_choice = dungeon_entrance()
     while True:
         if player_choice.lower() == 'k':
-            kick_door()
+            random.choice([monster(), riddle(), chest()])
             break
         elif player_choice.lower() == 'l':
             listen_door()
@@ -309,7 +326,7 @@ def roll_for_attribute():
 while True:
     menu_choice = main_menu()
     if menu_choice.lower() == 'n':
-        new_game(player_inventory)
+        new_game(player_inventory, doors)
     elif menu_choice.lower() == 'c':
         saved_game()
     elif menu_choice.lower() == 'h':
